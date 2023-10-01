@@ -30,10 +30,8 @@ const loadingManager = new THREE.LoadingManager(
         }, 500)
     },
     (itemUrl, itemsLoaded, itemsTotal) => {
-        console.log(itemUrl, itemsLoaded, itemsTotal)
         const progressRatio = itemsLoaded / itemsTotal
         loadingBarElement.style.transform = `scaleX(${progressRatio})`
-        console.log(progressRatio)
     },
     () => {
 
@@ -103,7 +101,6 @@ let pizza = null
 gltfLoader.load(
     './assests/pizza.glb',
     (gltf) => {
-        console.log(gltf);
 
         pizza = gltf.scene
 
@@ -174,8 +171,6 @@ window.addEventListener('scroll', () => {
 
     scrollY = window.scrollY
     const newSection = Math.round(scrollY / sizes.height)
-
-    console.log(newSection);
 
     if (newSection != currentSection) {
         currentSection = newSection
@@ -260,3 +255,25 @@ tick()
 window.onbeforeunload = function () {
     window.scrollTo(0, 0);
 }
+
+// Audio
+
+var audio = true
+const volumeOff = document.querySelector(".fa-volume-off")
+const volumeOn = document.querySelector(".fa-volume-up")
+const music = document.querySelector("audio")
+
+function Control() {
+    audio = !audio
+    if (audio) { 
+        volumeOff.style.display = "none";
+        volumeOn.style.display = "block";
+        music.play()
+    } else {
+        volumeOn.style.display = "none";
+        volumeOff.style.display = "block";
+        music.pause()
+    }
+}
+
+Control()
